@@ -1,17 +1,19 @@
+// import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:progmob_2023/constants.dart';
 import 'package:progmob_2023/details_screen.dart';
 import 'package:progmob_2023/model/category.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:progmob_2023/profile.dart';
+import 'package:sidebarx/sidebarx.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-
-
+  
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -25,10 +27,78 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+      // appBar: AppBar(
+      // ),
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+            accountName: Text('valentino'),
+            accountEmail: Text('vchristando@gmail.com'),
+            currentAccountPicture: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Text("VA",
+              style: TextStyle(fontSize: 40.0),),
+            ),
+            ),
+          //   const DrawerHeader(
+          //     decoration: BoxDecoration(
+          //       color: Colors.blue,
+          //     ),
+          //     child: Text('Menu'),
+          //   ),
+            
+            ListTile(
+              title: const Text('Home'),
+              trailing: Icon(Icons.home),
+              subtitle: const Text('Kembali Ke Halaman Utama'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>MyHomePage())); // Close the drawer
+                // Implement the navigation logic for Home here
+              },
+            ),
+            ListTile(
+              title: const Text('Profile'),
+              subtitle: const Text('Ubah Profil anda sekarang :)'),
+              trailing: Icon(Icons.person),
+              // leading: Icon(Icons.home), menambahkan icon di bagian kiri
+              // trailing: Icon(Icons.home), menambahkan icon di kanan
+              onTap: () {
+                Navigator.pop(context); // Close the drawer
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>Profile()));
+              },
+              
+            ),
+            
+            ListTile(
+              title: const Text('Bisnis'),
+              subtitle: const Text('Pilih Rekan Bisnis anda'),
+              trailing: Icon(Icons.business),
+              // leading: Icon(Icons.home), menambahkan icon di bagian kiri
+              // trailing: Icon(Icons.home), menambahkan icon di kanan
+              onTap: () {
+                Navigator.pop(context); // Close the drawer
+                Navigator.pushNamed(context, "/profilescreen");
+              },
+            ),
+            Divider(
+              color: Colors.black,
+              height: 20,
+              indent: 10,
+              endIndent: 10,
+            )
+            // Add more list items for other sections as needed
+          ],
+          
+        ),
+      ),
       body: Padding(
         padding: EdgeInsets.only(left: 20, top: 50, right: 20),
         child: Column(
@@ -37,18 +107,23 @@ class MyHomePage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                SvgPicture.asset("assets/icons/menu.svg"),
                 InkWell(
-                  onTap: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => DetailsScreen(),
-                      ),
-                    );
+                  onTap: () {
+                    // Scaffold.of(context).openDrawer();
+                    if (_scaffoldKey.currentState != null){
+                      _scaffoldKey.currentState!.openDrawer();
+                      }
                   },
-                  child: Image.asset("assets/icons/search.svg"),
-                )
+                  child: SvgPicture.asset("assets/icons/list.svg"),
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsScreen()));
+                    }
+                  ,
+                  child: Image.asset("assets/images/user.png"),
+                ),
               ],
             ),
             SizedBox(height: 30),
@@ -98,12 +173,9 @@ class MyHomePage extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DetailsScreen(),
-                        ),
-                      );
+                      if (_scaffoldKey.currentState != null){
+                      _scaffoldKey.currentState!.openDrawer();
+                      }
                     },
                     child: Container(
                       padding: EdgeInsets.all(20),

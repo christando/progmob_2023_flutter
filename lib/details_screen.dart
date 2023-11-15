@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:progmob_2023/constants.dart';
+import 'package:progmob_2023/main.dart';
 
 
 class DetailsScreen extends StatelessWidget {
@@ -25,11 +26,24 @@ class DetailsScreen extends StatelessWidget {
                 children: <Widget>[
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  
                     children: <Widget>[
-                      SvgPicture.asset("assets/icons/arrow-left.svg"),
-                      SvgPicture.asset("assets/icons/more-vertical.svg"),
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MyHomePage(),
+                            ),
+                          );
+                        },
+                        child: SvgPicture.asset("assets/icons/arrow-left-circle.svg"),
+                      ),
+                        SvgPicture.asset("assets/icons/three-dots-vertical.svg"),
                     ],
                   ),
+
+
                   SizedBox(height: 30),
                   ClipPath(
                     clipper: BestSellerClipper(),
@@ -54,7 +68,7 @@ class DetailsScreen extends StatelessWidget {
                       SizedBox(width: 5),
                       Text("18K"),
                       SizedBox(width: 20),
-                      SvgPicture.asset("assets/icons/star.svg"),
+                      SvgPicture.asset("assets/icons/star-fill.svg"),
                       SizedBox(width: 5),
                       Text("4.8")
                     ],
@@ -152,7 +166,7 @@ class DetailsScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(40),
                               ),
                               child: SvgPicture.asset(
-                                  "assets/icons/shopping-bag.svg"),
+                                  "assets/icons/bag.svg"),
                             ),
                             SizedBox(width: 20),
                             Expanded(
