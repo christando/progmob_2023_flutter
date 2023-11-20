@@ -6,7 +6,14 @@ import 'package:progmob_2023/model/category.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:progmob_2023/profile.dart';
-import 'package:sidebarx/sidebarx.dart';
+// import 'package:sidebarx/sidebarx.dart';
+import 'package:progmob_2023/fetchdata.dart';
+import 'package:progmob_2023/fetch2.dart';
+import 'package:progmob_2023/updatefetch.dart';
+import 'package:progmob_2023/deletefetch.dart';
+
+
+
 
 void main() {
   runApp(MyApp());
@@ -22,6 +29,14 @@ class MyApp extends StatelessWidget {
       title: 'Course App',
       theme: ThemeData(),
       home: MyHomePage(),
+
+      routes: {
+        '/fetchdata':(context)=>FetchData(),
+        '/fetch2':(context)=>Fetch2(),
+        '/fetch_update':(context)=>UpdateFetch(),
+        '/fetch_delete':(context)=>DeleteFetch(),
+
+      },
     );
   }
 }
@@ -85,9 +100,54 @@ class MyHomePage extends StatelessWidget {
               // trailing: Icon(Icons.home), menambahkan icon di kanan
               onTap: () {
                 Navigator.pop(context); // Close the drawer
-                Navigator.pushNamed(context, "/profilescreen");
+                //Navigator.pushNamed(context, MaterialPageRoute(builder: (context)=>fetchAlbum()));
               },
             ),
+            ListTile(
+              title: const Text('Read'),
+              subtitle: const Text('Read Fetching data'),
+              //trailing: Icon(Icons.business),
+              // leading: Icon(Icons.home), menambahkan icon di bagian kiri
+              // trailing: Icon(Icons.home), menambahkan icon di kanan
+              onTap: () {
+                Navigator.pop(context); // Close the drawer
+                Navigator.pushNamed(context, "/fetchdata");
+              },
+            ),
+            ListTile(
+              title: const Text('Create'),
+              subtitle: const Text('Create Fetching data'),
+              //trailing: Icon(Icons.business),
+              // leading: Icon(Icons.home), menambahkan icon di bagian kiri
+              // trailing: Icon(Icons.home), menambahkan icon di kanan
+              onTap: () {
+                Navigator.pop(context); // Close the drawer
+                Navigator.pushNamed(context, "/fetch2");
+              },
+            ),
+            ListTile(
+              title: const Text('Update'),
+              subtitle: const Text('Update Fetching data'),
+              //trailing: Icon(Icons.business),
+              // leading: Icon(Icons.home), menambahkan icon di bagian kiri
+              // trailing: Icon(Icons.home), menambahkan icon di kanan
+              onTap: () {
+                Navigator.pop(context); // Close the drawer
+                Navigator.pushNamed(context, "/fetch_update");
+              },
+            ),
+ListTile(
+              title: const Text('Delete'),
+              subtitle: const Text('Delete Fetching data'),
+              //trailing: Icon(Icons.business),
+              // leading: Icon(Icons.home), menambahkan icon di bagian kiri
+              // trailing: Icon(Icons.home), menambahkan icon di kanan
+              onTap: () {
+                Navigator.pop(context); // Close the drawer
+                Navigator.pushNamed(context, "/fetch_delete");
+              },
+            ),
+
             Divider(
               color: Colors.black,
               height: 20,
