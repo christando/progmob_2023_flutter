@@ -5,22 +5,24 @@ import 'package:progmob_2023/details_screen.dart';
 import 'package:progmob_2023/model/category.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:progmob_2023/profile.dart';
+import 'package:progmob_2023/profile_screen.dart';
 // import 'package:sidebarx/sidebarx.dart';
 import 'package:progmob_2023/fetchdata.dart';
 import 'package:progmob_2023/fetch2.dart';
 import 'package:progmob_2023/updatefetch.dart';
 import 'package:progmob_2023/deletefetch.dart';
+import 'package:progmob_2023/maps.dart';
+import 'package:progmob_2023/map.dart';
 
 
 
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  
+  const MyApp({Key? key}) : super(key: key);
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,9 @@ class MyApp extends StatelessWidget {
         '/fetch2':(context)=>Fetch2(),
         '/fetch_update':(context)=>UpdateFetch(),
         '/fetch_delete':(context)=>DeleteFetch(),
-
+        '/maps':(context)=>Maps(),
+        '/map': (context) => MapScreen(),
+        '/profile': (context) => ProfileScreen(),
       },
     );
   }
@@ -43,7 +47,7 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
+  MyHomePage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +57,7 @@ class MyHomePage extends StatelessWidget {
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
-            UserAccountsDrawerHeader(
+           const UserAccountsDrawerHeader(
             accountName: Text('valentino'),
             accountEmail: Text('vchristando@gmail.com'),
             currentAccountPicture: CircleAvatar(
@@ -87,7 +91,7 @@ class MyHomePage extends StatelessWidget {
               // trailing: Icon(Icons.home), menambahkan icon di kanan
               onTap: () {
                 Navigator.pop(context); // Close the drawer
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>Profile()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileScreen()));
               },
               
             ),
@@ -147,20 +151,47 @@ ListTile(
                 Navigator.pushNamed(context, "/fetch_delete");
               },
             ),
-
+ListTile(
+              title: const Text('Maps'),
+              subtitle: const Text('open Maps'),
+              //trailing: Icon(Icons.business),
+              // leading: Icon(Icons.home), menambahkan icon di bagian kiri
+              // trailing: Icon(Icons.home), menambahkan icon di kanan
+              onTap: () {
+                Navigator.pop(context); // Close the drawer
+                Navigator.pushNamed(context, "/maps");
+              },
+            ),
+            ListTile(
+              title: const Text('Map'),
+              leading: const Icon(Icons.map_rounded),
+              onTap: () {
+                Navigator.pop(context); // Close the drawer
+                Navigator.pushNamed(context, "/map");
+              },
+            ),
             Divider(
               color: Colors.black,
               height: 20,
               indent: 10,
               endIndent: 10,
-            )
+            ),
+            ListTile(
+              title: const Text('Log Out'),
+              leading: const Icon(Icons.logout),
+              onTap: () {
+                Navigator.pop(context); // Close the drawer
+                Navigator.pushNamed(context, "/profilescreen");
+              },
+            ),
             // Add more list items for other sections as needed
           ],
           
         ),
       ),
+      
       body: Padding(
-        padding: EdgeInsets.only(left: 20, top: 50, right: 20),
+        padding: const EdgeInsets.only(left: 20, top: 50, right: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
